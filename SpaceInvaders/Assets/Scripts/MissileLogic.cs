@@ -17,7 +17,6 @@ public class MissileLogic : MonoBehaviour
     [SerializeField]
     public LayerMask layerToHit;
 
-
     [Header("Explosions!!!")]
     //We create a variable to hold the damage value of enemy missiles.
     [SerializeField]
@@ -27,7 +26,7 @@ public class MissileLogic : MonoBehaviour
     private GameObject explosionEffect;
 
     [Header("UI")]
-    //Here we create a bool to store a value to determine whether the missile fieldOfImpact is on.
+    //Here we create a bool to store a value to determine whether the missile fieldOfImpact gizmo is on.
     [SerializeField]
     private bool isGizmoOn = true;
 
@@ -38,8 +37,14 @@ public class MissileLogic : MonoBehaviour
         rb2D.velocity = transform.right * moveSpeed;
     }
 
+    private void FixedUpdate()
+    {
+        this.transform.rotation = Quaternion.FromToRotation(Vector2.right, rb2D.velocity);
+    }
+
     private void OnTriggerEnter2D(Collider2D obj)
     {
+        //We test whether the gameObjects collided with have the requisite tags to trigger a reactoin. If true, we call the explosion script.
         if (obj.tag == "PlayerBase" || obj.tag == "Ground")
         {
             Explosion();
@@ -48,8 +53,10 @@ public class MissileLogic : MonoBehaviour
 
     private void Explosion()
     {
+        //We collect all the collider2D objects in a list based on whether they were in the field of impact and had the correct layer to be effected
         Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, fieldOfImpact, layerToHit);
 
+        //We iterate through the list of colliders effected and calculate a dmg multiplier then apply dmg as necessary
         foreach (Collider2D obj in objects)
         {
             float distanceFromObj = Vector3.Distance(obj.transform.position, this.transform.position);
@@ -65,11 +72,13 @@ public class MissileLogic : MonoBehaviour
             }
         }
 
+        //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
         GameObject ExplosionEffectIns = Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(ExplosionEffectIns, .5f);
         Destroy(gameObject);
     }
 
+    //We use this function to visually track the field of impact from these missiles
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

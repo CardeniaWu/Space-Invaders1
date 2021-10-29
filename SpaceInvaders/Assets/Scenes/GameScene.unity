@@ -856,7 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToFire: 2
   timeLoop: 0
-  prefabedmissile: {fileID: 3791885361989628753, guid: 04aa9cf7d0c8e7c4c80079db5a0803db, type: 3}
+  prefabedmissile: {fileID: 9070742194777627539, guid: 8ceebe34c5ee9f44bad593ba7935e16d, type: 3}
   turnOnTurretRay: 0
   missileSpawnPos: {fileID: 88165373}
   isFiring: 1
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToFire: 2
   timeLoop: 0
-  prefabedmissile: {fileID: 3791885361989628753, guid: 04aa9cf7d0c8e7c4c80079db5a0803db, type: 3}
+  prefabedmissile: {fileID: 9070742194777627539, guid: 8ceebe34c5ee9f44bad593ba7935e16d, type: 3}
   turnOnTurretRay: 0
   missileSpawnPos: {fileID: 838378900}
   isFiring: 1
@@ -2424,7 +2424,6 @@ GameObject:
   - component: {fileID: 407002672}
   - component: {fileID: 407002671}
   - component: {fileID: 407002670}
-  - component: {fileID: 407002669}
   - component: {fileID: 407002673}
   - component: {fileID: 407002674}
   m_Layer: 0
@@ -2434,20 +2433,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &407002669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407002668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 051f8c5c8875c004383f7ba8ff927acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretBarrelRight: {fileID: 0}
-  turretBarrelLeft: {fileID: 0}
 --- !u!58 &407002670
 CircleCollider2D:
   m_ObjectHideFlags: 0

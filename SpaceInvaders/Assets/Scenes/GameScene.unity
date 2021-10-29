@@ -1227,9 +1227,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 249391024}
-  m_Layer: 0
+  - component: {fileID: 249391026}
+  - component: {fileID: 249391025}
+  m_Layer: 3
   m_Name: TurretEmplacement1
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1251,6 +1253,46 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!61 &249391025
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249391023}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.027291615, y: -0.026852764}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.14728019, y: 0.17777242}
+  m_EdgeRadius: 0
+--- !u!114 &249391026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249391023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthbar: {fileID: 1297046650}
 --- !u!1 &259606529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,8 +2082,7 @@ GameObject:
   - component: {fileID: 380739498}
   - component: {fileID: 380739500}
   - component: {fileID: 380739499}
-  - component: {fileID: 380739501}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret1Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -2075,7 +2116,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0039336383, y: -0.001080947}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2086,7 +2127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.102908075, y: 0.12216191}
   m_EdgeRadius: 0
 --- !u!212 &380739500
 SpriteRenderer:
@@ -2139,20 +2180,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &380739501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380739497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthbar: {fileID: 1297046650}
 --- !u!1 &384307380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3138,9 +3165,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 571063480}
-  m_Layer: 0
+  - component: {fileID: 571063481}
+  m_Layer: 3
   m_Name: TurretEmplacement5
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3162,6 +3190,32 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!61 &571063481
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571063479}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.027391892, y: 0.023014024}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16772619, y: 0.18052346}
+  m_EdgeRadius: 0
 --- !u!1 &578969444
 GameObject:
   m_ObjectHideFlags: 0
@@ -4354,8 +4408,7 @@ GameObject:
   - component: {fileID: 860898040}
   - component: {fileID: 860898042}
   - component: {fileID: 860898041}
-  - component: {fileID: 860898043}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret6Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -4389,7 +4442,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.004803039, y: 0.00622537}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4400,7 +4453,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.10536577, y: 0.11535975}
   m_EdgeRadius: 0
 --- !u!212 &860898042
 SpriteRenderer:
@@ -4453,20 +4506,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &860898043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860898039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthbar: {fileID: 1944080612}
 --- !u!1 &866701322
 GameObject:
   m_ObjectHideFlags: 0
@@ -4661,9 +4700,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 912339503}
-  m_Layer: 0
+  - component: {fileID: 912339505}
+  - component: {fileID: 912339504}
+  m_Layer: 3
   m_Name: TurretEmplacement6
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4685,6 +4726,46 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!61 &912339504
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912339502}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.030840933, y: 0.027020082}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.15588194, y: 0.16870713}
+  m_EdgeRadius: 0
+--- !u!114 &912339505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912339502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthbar: {fileID: 1944080612}
 --- !u!1 &928173742
 GameObject:
   m_ObjectHideFlags: 0
@@ -4830,7 +4911,7 @@ GameObject:
   - component: {fileID: 934983076}
   - component: {fileID: 934983075}
   - component: {fileID: 934983077}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret5Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -4864,7 +4945,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00214573, y: 0.00084706396}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4875,7 +4956,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.114291444, y: 0.1216941}
   m_EdgeRadius: 0
 --- !u!212 &934983076
 SpriteRenderer:
@@ -5475,9 +5556,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1021260873}
-  m_Layer: 0
+  - component: {fileID: 1021260875}
+  - component: {fileID: 1021260874}
+  m_Layer: 3
   m_Name: TurretEmplacement3
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5499,6 +5582,46 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!61 &1021260874
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021260872}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.027281329, y: -0.022405645}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16373715, y: 0.16676134}
+  m_EdgeRadius: 0
+--- !u!114 &1021260875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021260872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthbar: {fileID: 2095758778}
 --- !u!1 &1032956805
 GameObject:
   m_ObjectHideFlags: 0
@@ -6464,9 +6587,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1179820189}
-  m_Layer: 0
+  - component: {fileID: 1179820191}
+  - component: {fileID: 1179820190}
+  m_Layer: 3
   m_Name: TurretEmplacement4
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6488,6 +6613,46 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!114 &1179820190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179820188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthbar: {fileID: 822863249}
+--- !u!61 &1179820191
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179820188}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.025651444, y: 0.027320221}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.1618295, y: 0.17046073}
+  m_EdgeRadius: 0
 --- !u!1 &1216870853
 GameObject:
   m_ObjectHideFlags: 0
@@ -6497,9 +6662,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216870854}
+  - component: {fileID: 1216870856}
+  - component: {fileID: 1216870855}
   m_Layer: 3
   m_Name: PlayerGunEmplacement
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6521,6 +6688,46 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 88.464}
+--- !u!114 &1216870855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216870853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 250
+  healthbar: {fileID: 1322265830}
+--- !u!61 &1216870856
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216870853}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04693213, y: 0.00069608726}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.21170104, y: 0.12449302}
+  m_EdgeRadius: 0
 --- !u!1 &1245221227
 GameObject:
   m_ObjectHideFlags: 0
@@ -8414,8 +8621,7 @@ GameObject:
   - component: {fileID: 1508150040}
   - component: {fileID: 1508150042}
   - component: {fileID: 1508150041}
-  - component: {fileID: 1508150043}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret2Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -8449,7 +8655,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.002693601, y: -0.002688136}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -8460,7 +8666,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.1153872, y: 0.12537634}
   m_EdgeRadius: 0
 --- !u!212 &1508150042
 SpriteRenderer:
@@ -8513,20 +8719,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1508150043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508150039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthbar: {fileID: 928173744}
 --- !u!1 &1512688655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8863,8 +9055,7 @@ GameObject:
   - component: {fileID: 1571361150}
   - component: {fileID: 1571361152}
   - component: {fileID: 1571361151}
-  - component: {fileID: 1571361153}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret3Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -8898,7 +9089,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.005047247, y: -0.002747994}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -8909,7 +9100,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.12009457, y: 0.125496}
   m_EdgeRadius: 0
 --- !u!212 &1571361152
 SpriteRenderer:
@@ -8962,20 +9153,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1571361153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571361149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthbar: {fileID: 2095758778}
 --- !u!1 &1581714055
 GameObject:
   m_ObjectHideFlags: 0
@@ -9959,8 +10136,7 @@ GameObject:
   - component: {fileID: 1727562683}
   - component: {fileID: 1727562685}
   - component: {fileID: 1727562684}
-  - component: {fileID: 1727562686}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Turret4Base
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -9994,7 +10170,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0019803606, y: 0.0009393655}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10005,7 +10181,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.113960646, y: 0.12187881}
   m_EdgeRadius: 0
 --- !u!212 &1727562685
 SpriteRenderer:
@@ -10058,20 +10234,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1727562686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1727562682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthbar: {fileID: 822863249}
 --- !u!1 &1734133475
 GameObject:
   m_ObjectHideFlags: 0
@@ -10233,8 +10395,7 @@ GameObject:
   - component: {fileID: 1743670198}
   - component: {fileID: 1743670200}
   - component: {fileID: 1743670199}
-  - component: {fileID: 1743670201}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PGunBase
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -10268,7 +10429,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00032038614, y: 0.00029996037}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10279,7 +10440,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.12}
+  m_Size: {x: 0.11064071, y: 0.12180911}
   m_EdgeRadius: 0
 --- !u!212 &1743670200
 SpriteRenderer:
@@ -10332,20 +10493,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1743670201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743670197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 250
-  healthbar: {fileID: 1322265830}
 --- !u!1 &1797035623
 GameObject:
   m_ObjectHideFlags: 0
@@ -13120,9 +13267,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2126005871}
-  m_Layer: 0
+  - component: {fileID: 2126005873}
+  - component: {fileID: 2126005872}
+  m_Layer: 3
   m_Name: TurretEmplacement2
-  m_TagString: PlayerBase
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13144,3 +13293,43 @@ Transform:
   m_Father: {fileID: 67412898}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.049}
+--- !u!114 &2126005872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126005870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c179deb78524a46ad6ebb77edc08c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthbar: {fileID: 928173744}
+--- !u!61 &2126005873
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126005870}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.025560096, y: -0.026998928}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16110788, y: 0.17130606}
+  m_EdgeRadius: 0

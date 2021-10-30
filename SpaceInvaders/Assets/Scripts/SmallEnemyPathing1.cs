@@ -7,21 +7,20 @@ public class SmallEnemyPathing1 : MonoBehaviour
     [Header("Spawn System")]
     //Transform to hold the spawn point of the SmallEnemy
     public Transform seSpawnpoint;
-    //Transform to hold the Small Enemy waypoint
-    private Transform waypoint;
-    //We create a bool to hold the value to determine whether we spawned on the left or the right
-    bool lSpawn;
-    //This is probably the wrong way to do this but I'm creating a bool to differentiate between first loop and second loop. This will enable us to make the spawn move up one spawn and down on the next to give the enemies a zig zag movement
-    bool run1;
-    //This bool is to test whether the SmallEnemy is in the top or ground out of bounds regions and act accordingly
-    bool tOutOfBounds = false;
-    bool gOutOfBounds = false;
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
     public List<Transform> _spawnpoints;
     public Transform sp1L;
     public Transform sp2L;
     public Transform sp3R;
     public Transform sp4R;
+
+    [Header("Movement & Boundries")]
+    //Transform to hold the Small Enemy waypoint
+    private Transform waypoint;
+    //We create a bool to hold the value to determine whether we spawned on the left or the right
+    bool lSpawn;
+    //This is probably the wrong way to do this but I'm creating a bool to differentiate between first loop and second loop. This will enable us to make the spawn move up one spawn and down on the next to give the enemies a zig zag movement
+    bool run1;
     //We set a float for speed
     public float speed = .5f;
     //We create a public BoxCollider variable to hold our left, right, top, bottom & base out of bounds boxes
@@ -30,6 +29,9 @@ public class SmallEnemyPathing1 : MonoBehaviour
     public BoxCollider2D topOutOfBounds;
     public BoxCollider2D groundOutOfBounds;
     public BoxCollider2D baseOutOfBounds;
+    //This bool is to test whether the SmallEnemy is in the top or ground out of bounds regions and act accordingly
+    bool tOutOfBounds = false;
+    bool gOutOfBounds = false;
     //We create two variables to track the time from the onset of spawn to 3 seconds later.
     //This allows us to conditionally spawn our SmallEnemy out of bounds while keeping it moving in the correct direction.
     private float timeToMove = 3.0f;
@@ -63,7 +65,7 @@ public class SmallEnemyPathing1 : MonoBehaviour
             lSpawn = false;
         }
 
-        Debug.Log($"seSpawnpoint = ${seSpawnpoint} while lSpawn = ${lSpawn}");
+        //Debug.Log($"seSpawnpoint = ${seSpawnpoint} while lSpawn = ${lSpawn}");
     }
 
     // Update is called once per frame

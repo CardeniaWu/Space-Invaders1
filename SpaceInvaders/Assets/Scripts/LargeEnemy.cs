@@ -39,6 +39,15 @@ public class LargeEnemy : MonoBehaviour
     private Transform leSpawnpoint;
     //We create a variable to hold an initial rotational value
     private Quaternion startRotation;
+    //We create a variable to determine whether the LE spawned on the left or the right
+    private bool lSpawn;
+
+    [Header("Shooting System")]
+    [SerializeField]
+    private Animator leBayDoorT;
+    [SerializeField]
+    private Animator leBayDoorB;
+
 
     [Header("Debug Assistance")]
     //We create a variable to allow us to turn debug assistance on or off
@@ -54,6 +63,11 @@ public class LargeEnemy : MonoBehaviour
         RandomizePosition();
 
         this.transform.position = leSpawnpoint.position;
+
+        if (this.transform.position == sp1.position || this.transform.position == sp2.position)
+        {
+            lSpawn = true;
+        }
     }
 
     void Update()
@@ -61,6 +75,8 @@ public class LargeEnemy : MonoBehaviour
         if (leBarrier.bounds.Contains(this.transform.position))
         {
             shouldMove = false;
+            leBayDoorT.SetBool("InRange", true);
+            leBayDoorB.SetBool("InRange", true);
         }
     }
     
@@ -75,8 +91,16 @@ public class LargeEnemy : MonoBehaviour
         diff = this.transform.position - PBase.position;
         diff.Normalize();
         float rotZ = Mathf.Atan2(diff.x, diff.y) * Mathf.Rad2Deg;
-        this.transform.rotation = Quaternion.Euler(0, 0, rotZ);
-        
+
+        if (lSpawn)
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+        } else
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0, rotZ - 180);
+        }
+  
         /*
         //We create a variable to hold our movement vector
         movement = this.transform.position - PBase.position;
@@ -89,12 +113,11 @@ public class LargeEnemy : MonoBehaviour
 
         //We use MoveRotation to adjust our rotation based on the values formulated by targetRotation
         se_Rigidbody2D.MoveRotation(targetRotation);
-
         */
 
         if (debugAssist)
         {
-            Debug.Log($"LE target rotation is {this.transform.rotation.eulerAngles}");
+            Debug.Log($"LE target rotation is {this.transform.rotation.z}");
         }
     }
 
@@ -111,7 +134,7 @@ public class LargeEnemy : MonoBehaviour
             int randNumber = Random.Range(0, 3);
 
             //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[3];
+            leSpawnpoint = _LEspawnpoints[0];
         }
     }
 

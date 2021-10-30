@@ -12418,6 +12418,8 @@ MonoBehaviour:
   sp2: {fileID: 479643657}
   sp3: {fileID: 409289161}
   sp4: {fileID: 455892917}
+  leBayDoorT: {fileID: 270789622}
+  leBayDoorB: {fileID: 1997530443}
   debugAssist: 1
 --- !u!50 &1957923708
 Rigidbody2D:

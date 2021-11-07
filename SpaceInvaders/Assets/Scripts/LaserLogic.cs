@@ -14,7 +14,8 @@ public class LaserLogic : MonoBehaviour
     [SerializeField]
     private float damageToPlayer = 100.0f;
     //We create a variable to hold our positional data of where the collision occurred
-    private Vector3 collisionLocation;
+    [SerializeField]
+    private Transform collisionLocation;
 
     [Header("Visual Aethetics")]
     //Here we store our laser animation
@@ -53,23 +54,15 @@ public class LaserLogic : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D obj)
-    {
-        if (obj.tag == "PlayerBase" || obj.tag == "Ground")
-        {
-            collisionLocation = obj.transform.position;
-        }
-    }
-
     private void Explosion()
     {
             //We collect all the collider2D objects in a list based on whether they were in the field of impact and had the correct layer to be effected
-            Collider2D[] objects = Physics2D.OverlapCircleAll(collisionLocation, fieldOfImpact, layerToHit);
+            Collider2D[] objects = Physics2D.OverlapCircleAll(collisionLocation.position, fieldOfImpact, layerToHit);
 
             //We iterate through the list of colliders effected and calculate a dmg multiplier then apply dmg as necessary
             foreach (Collider2D obj in objects)
             {
-                float distanceFromObj = Vector3.Distance(obj.transform.position, collisionLocation);
+                float distanceFromObj = Vector3.Distance(obj.transform.position, collisionLocation.position);
 
                 float dmgMultiplier = 1 / distanceFromObj;
 
@@ -84,7 +77,7 @@ public class LaserLogic : MonoBehaviour
             }
 
             //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
-            GameObject ExplosionEffectIns = Instantiate(explosionEffect, collisionLocation, Quaternion.identity);
+            GameObject ExplosionEffectIns = Instantiate(explosionEffect, collisionLocation.position, Quaternion.identity);
             Destroy(ExplosionEffectIns, .75f);
             Destroy(gameObject);
     }
@@ -94,9 +87,9 @@ public class LaserLogic : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        if (isGizmoOn && collisionLocation != null)
+        if (isGizmoOn)
         {
-            Gizmos.DrawWireSphere(collisionLocation, fieldOfImpact);
+            Gizmos.DrawWireSphere(collisionLocation.position, fieldOfImpact);
         }
     }
 }

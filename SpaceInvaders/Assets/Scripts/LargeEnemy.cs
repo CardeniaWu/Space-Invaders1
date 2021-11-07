@@ -149,7 +149,7 @@ public class LargeEnemy : MonoBehaviour
             int randNumber = Random.Range(0, 3);
 
             //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[randNumber];
+            leSpawnpoint = _LEspawnpoints[3];
         }
     }
 

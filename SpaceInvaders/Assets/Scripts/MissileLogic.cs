@@ -19,7 +19,7 @@ public class MissileLogic : MonoBehaviour
     [Header("Explosions!!!")]
     //We create a variable to hold the damage value of enemy missiles.
     [SerializeField]
-    private float damageToPlayer = 20.0f;
+    private float damage = 20.0f;
     //We create a variable to hold our explosion effect.
     [SerializeField]
     private GameObject explosionEffect;
@@ -60,11 +60,18 @@ public class MissileLogic : MonoBehaviour
         {
             float distanceFromObj = Vector3.Distance(obj.transform.position, this.transform.position);
 
-            float dmgMultiplier = 1 / distanceFromObj; 
+            float dmgMultiplier = 1 / distanceFromObj;
+
+            float dmgToPlayer = damage * dmgMultiplier;
+
+            if (dmgToPlayer > 20)
+            {
+                dmgToPlayer = 20;
+            }
            
             if (obj.gameObject.GetComponent<ObjectHealth>() != null)
             {
-                obj.gameObject.GetComponent<ObjectHealth>().TakeDamage(damageToPlayer * dmgMultiplier);
+                obj.gameObject.GetComponent<ObjectHealth>().TakeDamage(dmgToPlayer);
             } else
             {
                 Debug.Log($"ObjectHealth script not found for {obj}.");

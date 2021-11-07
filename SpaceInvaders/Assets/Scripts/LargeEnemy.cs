@@ -20,6 +20,11 @@ public class LargeEnemy : MonoBehaviour
     private bool shouldMove = true;
     //We create a Vector2 to hold our movement value
     private Vector2 movement;
+    //We create two animator variables to hold our thrust animations
+    [SerializeField]
+    private Animator rightThrust;
+    [SerializeField]
+    private Animator leftThrust;
 
     [Header("Spawn System")]
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
@@ -86,6 +91,8 @@ public class LargeEnemy : MonoBehaviour
             shouldMove = false;
             leBayDoorT.SetBool("InRange", true);
             leBayDoorB.SetBool("InRange", true);
+            rightThrust.SetBool("Moving", false);
+            leftThrust.SetBool("Moving", false);
         }
 
         //Once the bay doors are in firing position, we heat up our laser gun
@@ -114,6 +121,8 @@ public class LargeEnemy : MonoBehaviour
         if (shouldMove)
         {
             MoveToLEWaypoint();
+            rightThrust.SetBool("Moving", true);
+            leftThrust.SetBool("Moving", true);
         }
 
         //We calculate our movement value
@@ -149,7 +158,7 @@ public class LargeEnemy : MonoBehaviour
             int randNumber = Random.Range(0, 3);
 
             //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[3];
+            leSpawnpoint = _LEspawnpoints[randNumber];
         }
     }
 

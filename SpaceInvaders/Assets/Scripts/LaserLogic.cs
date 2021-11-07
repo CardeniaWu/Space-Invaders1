@@ -12,7 +12,7 @@ public class LaserLogic : MonoBehaviour
     public LayerMask layerToHit;
     //We create a variable to hold the damage value of enemy lasers.
     [SerializeField]
-    private float damageToPlayer = 100.0f;
+    private float damage = 100.0f;
     //We create a variable to hold our positional data of where the collision occurred
     [SerializeField]
     private Transform collisionLocation;
@@ -56,30 +56,37 @@ public class LaserLogic : MonoBehaviour
 
     private void Explosion()
     {
-            //We collect all the collider2D objects in a list based on whether they were in the field of impact and had the correct layer to be effected
-            Collider2D[] objects = Physics2D.OverlapCircleAll(collisionLocation.position, fieldOfImpact, layerToHit);
+        //We collect all the collider2D objects in a list based on whether they were in the field of impact and had the correct layer to be effected
+        Collider2D[] objects = Physics2D.OverlapCircleAll(collisionLocation.position, fieldOfImpact, layerToHit);
 
-            //We iterate through the list of colliders effected and calculate a dmg multiplier then apply dmg as necessary
-            foreach (Collider2D obj in objects)
+        //We iterate through the list of colliders effected and calculate a dmg multiplier then apply dmg as necessary
+        foreach (Collider2D obj in objects)
+        {
+            float distanceFromObj = Vector3.Distance(obj.transform.position, collisionLocation.position);
+            
+            float dmgMultiplier = 1 / distanceFromObj;
+
+            float dmgToPlayer = damage * dmgMultiplier;
+                
+            if (dmgToPlayer > 100)
             {
-                float distanceFromObj = Vector3.Distance(obj.transform.position, collisionLocation.position);
-
-                float dmgMultiplier = 1 / distanceFromObj;
-
-                if (obj.gameObject.GetComponent<ObjectHealth>() != null)
-                {
-                    obj.gameObject.GetComponent<ObjectHealth>().TakeDamage(damageToPlayer * dmgMultiplier);
-                }
-                else
-                {
-                    Debug.Log($"ObjectHealth script not found for {obj}.");
-                }
+                dmgToPlayer = 100;
             }
 
-            //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
-            GameObject ExplosionEffectIns = Instantiate(explosionEffect, collisionLocation.position, Quaternion.identity);
-            Destroy(ExplosionEffectIns, .75f);
-            Destroy(gameObject);
+            if (obj.gameObject.GetComponent<ObjectHealth>() != null)
+            {
+                obj.gameObject.GetComponent<ObjectHealth>().TakeDamage(dmgToPlayer);
+            }
+            else
+            {
+                Debug.Log($"ObjectHealth script not found for {obj}.");
+            }
+        }
+
+        //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
+        GameObject ExplosionEffectIns = Instantiate(explosionEffect, collisionLocation.position, Quaternion.identity);
+        Destroy(ExplosionEffectIns, .75f);
+        Destroy(gameObject);
     }
 
     //We use this function to visually track the field of impact from our lasers

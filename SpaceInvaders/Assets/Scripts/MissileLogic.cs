@@ -14,7 +14,6 @@ public class MissileLogic : MonoBehaviour
     [SerializeField]
     private float fieldOfImpact = 0.0f;
     //We create a variable to hold our layermask to tell it what layers to effect.
-    [SerializeField]
     public LayerMask layerToHit;
 
     [Header("Explosions!!!")]

@@ -20,8 +20,6 @@ public class LargeEnemy : MonoBehaviour
     private bool shouldMove = true;
     //We create a Vector2 to hold our movement value
     private Vector2 movement;
-    //We create a Vector3 to hold our movement value
-    private Vector3 diff;
 
     [Header("Spawn System")]
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
@@ -37,46 +35,76 @@ public class LargeEnemy : MonoBehaviour
     private Transform sp4;
     //We create a transform variable to hold the value of the LE spawn point
     private Transform leSpawnpoint;
-    //We create a variable to hold an initial rotational value
-    private Quaternion startRotation;
-    //We create a variable to determine whether the LE spawned on the left or the right
-    private bool lSpawn;
 
+    
     [Header("Shooting System")]
+    //We create a two variables to hold our bay door animators 
     [SerializeField]
     private Animator leBayDoorT;
     [SerializeField]
     private Animator leBayDoorB;
+    //We create a variable to hold our fire animator which comes after the bay doors are open
+    [SerializeField]
+    private Animator LEFire;
+    //We create a transform variable to hold our prefabbed laser
+    [SerializeField]
+    private Transform prefabLaser;
+    //And one to hold the instantiated laser
+    private Transform instantiatedLaser;
+    //We create a transform variable to hold the position of the gun from which we will shoot the laser 
+    [SerializeField]
+    private Transform laserSpawn;
+    //And a bool to tell us whether we should shoot the laser or not
+    private bool shouldFire = true;
+    
 
 
     [Header("Debug Assistance")]
     //We create a variable to allow us to turn debug assistance on or off
     [SerializeField]
     private bool debugAssist;
+    [SerializeField]
+    private bool turnOnGizmo;
 
     // Start is called before the first frame update
     void Start()
     {
+        //We set our rigidbody variable, create our spawn in list and populate it with spawn points, randomize our start location and set the initial position to our randomized spawn
         se_Rigidbody2D = GetComponent<Rigidbody2D>();
         _LEspawnpoints = new List<Transform>();
         AddToList(sp1, sp2, sp3, sp4);
         RandomizePosition();
 
         this.transform.position = leSpawnpoint.position;
-
-        if (this.transform.position == sp1.position || this.transform.position == sp2.position)
-        {
-            lSpawn = true;
-        }
     }
 
     void Update()
     {
+        //We check to see whether we should continue moving. If we are close enough to the base, we stop and initiate our bay door anims
         if (leBarrier.bounds.Contains(this.transform.position))
         {
             shouldMove = false;
             leBayDoorT.SetBool("InRange", true);
             leBayDoorB.SetBool("InRange", true);
+        }
+
+        //Once the bay doors are in firing position, we heat up our laser gun
+        if (leBayDoorB.GetCurrentAnimatorStateInfo(0).IsName("LEBDBFiring"))
+        {
+            LEFire.SetBool("FireReady", true);
+        }
+
+        //Once the laser gun is heated, we fire our laser once
+        if (LEFire.GetCurrentAnimatorStateInfo(0).IsName("LEBOOM") && shouldFire)
+        {
+            FireLaser();
+            shouldFire = false;
+        }
+
+        //Once the laser gun fires once and returns to heating up, we return our shouldFire variable to true to fire once again
+        if (LEFire.GetCurrentAnimatorStateInfo(0).IsName("LEFire"))
+        {
+            shouldFire = true;
         }
     }
     
@@ -88,44 +116,31 @@ public class LargeEnemy : MonoBehaviour
             MoveToLEWaypoint();
         }
 
-        diff = this.transform.position - PBase.position;
-        diff.Normalize();
-        float rotZ = Mathf.Atan2(diff.x, diff.y) * Mathf.Rad2Deg;
-
-        if (lSpawn)
-        {
-            this.transform.rotation = Quaternion.Euler(0, 0, rotZ);
-
-        } else
-        {
-            this.transform.rotation = Quaternion.Euler(0, 0, rotZ - 180);
-        }
-  
-        /*
-        //We create a variable to hold our movement vector
+        //We calculate our movement value
         movement = this.transform.position - PBase.position;
 
-        //We create a new Quaternion named targetRotation and use the movement to set its LookRotation
-        Quaternion targetRotation = Quaternion.LookRotation(movement);
+        //If we are moving, we align our movement with the direction we are heading
+        if (movement != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+            angle = angle - 180.0f;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
-        //We modify the new Quaternion to set a rotate towards value
-        targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
-
-        //We use MoveRotation to adjust our rotation based on the values formulated by targetRotation
-        se_Rigidbody2D.MoveRotation(targetRotation);
-        */
-
+        //Debug assistance message that tells us the target rotation in euler angles
         if (debugAssist)
         {
-            Debug.Log($"LE target rotation is {this.transform.rotation.z}");
+            Debug.Log($"LE target rotation is {this.transform.eulerAngles}");
         }
     }
 
+    //Here we tell our ship to move towards the player base
     void MoveToLEWaypoint()
     {
         transform.position = Vector2.MoveTowards(transform.position, PBase.position, speed * Time.deltaTime);
     }
 
+    //We initialize our spawn point by randamizing between four initial spawn points.
     public void RandomizePosition()
     {
         if (_LEspawnpoints != null)
@@ -134,15 +149,38 @@ public class LargeEnemy : MonoBehaviour
             int randNumber = Random.Range(0, 3);
 
             //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[0];
+            leSpawnpoint = _LEspawnpoints[randNumber];
         }
     }
 
+    //Pew Pew
+    void FireLaser()
+    {
+        //Convert the quaternion to euler angles, then modify the Z to get the roration we want
+        Vector3 myEulerAngles = this.transform.rotation.eulerAngles;
+        Quaternion laserRotation = Quaternion.Euler(myEulerAngles.x, myEulerAngles.y, myEulerAngles.z - 90);
+
+        //Instantiate the laser
+        instantiatedLaser = Instantiate(prefabLaser, laserSpawn.position, laserRotation);
+    }
+
+    //Nifty AddToList function
     void AddToList(params Transform[] list)
     {
         for (int i = 0; i < list.Length; i++)
         {
             _LEspawnpoints.Add(list[i]);
+        }
+    }
+
+    // Here we draw Gizmo rays from the turrets to enable us to see the prospective missile trajectory
+    private void OnDrawGizmos()
+    {
+        if (turnOnGizmo)
+        {
+            Gizmos.color = Color.red;
+            Vector3 direction = transform.TransformDirection(Vector3.right) * 25;
+            Gizmos.DrawRay(transform.position, direction);
         }
     }
 }

@@ -24,15 +24,6 @@ public class SETurretLogic : MonoBehaviour
     [SerializeField]
     private bool isFiring = false;
 
-    /*
-     * Script Planning:
-     * 1. Set up a timer to track fire rate
-     * 2. Store a bullet object in a prefab
-     * 3. Instantiate the prefab on the fire
-     * 4. Tell the bullet to move forward
-     * 5. Tell the bullet to destroy itself when it makes contact with the ground or the base
-    */
-
     private void FixedUpdate()
     {
         //We set timeLoop to Time.fixedDeltaTime

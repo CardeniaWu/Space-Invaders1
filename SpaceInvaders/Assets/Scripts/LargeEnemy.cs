@@ -74,6 +74,9 @@ public class LargeEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //We grab the LEHBar and set it's position to be above our LE
+
+        
         //We set our rigidbody variable, create our spawn in list and populate it with spawn points, randomize our start location and set the initial position to our randomized spawn
         se_Rigidbody2D = GetComponent<Rigidbody2D>();
         _LEspawnpoints = new List<Transform>();

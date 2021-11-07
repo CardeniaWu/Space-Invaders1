@@ -14,12 +14,16 @@ public class ObjectHealth : MonoBehaviour
     private HealthSystem healthbar;
     [SerializeField]
     private GameObject hBarGameobject;
+    //We create a variable to determine whether we should match our orientation with the ground
+    [SerializeField]
+    private bool orientWithGround;
+    //We create a variable to hold the transform of the ground
+    private Transform groundVar;
+
 
     [Header("Timer")]
     //We set our wait time to 5 seconds
-    [SerializeField]
     private float waitTime = 5.0f;
-    [SerializeField]
     private float elapsedTime;
 
     [Header("Debug Assistance")]
@@ -35,6 +39,8 @@ public class ObjectHealth : MonoBehaviour
         healthbar.SetMaxHealth(maxHealth);
         //We set the healthbar to inactive
         hBarGameobject.SetActive(false);
+
+        groundVar = GameObject.Find("Background").GetComponent<Transform>().transform;
     }
 
     private void Update()
@@ -45,6 +51,14 @@ public class ObjectHealth : MonoBehaviour
         {
             hBarGameobject.SetActive(false);
         }    
+
+        if (orientWithGround)
+        {
+            Vector3 myEulerAngles = groundVar.rotation.eulerAngles;
+            Quaternion HBarRotation = Quaternion.Euler(myEulerAngles.x, myEulerAngles.y, myEulerAngles.z - 90);
+
+            this.transform.rotation = HBarRotation;
+        }
     }
 
     //Function that deals damage

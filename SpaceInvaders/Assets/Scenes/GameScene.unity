@@ -1325,7 +1325,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 1297046650}
   hBarGameobject: {fileID: 1297046648}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &259606529
 GameObject:
@@ -2694,7 +2693,6 @@ MonoBehaviour:
   maxHealth: 75
   healthbar: {fileID: 113481894}
   hBarGameobject: {fileID: 113481893}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &409289160
 GameObject:
@@ -3450,7 +3448,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 404934280}
   hBarGameobject: {fileID: 404934278}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &578969444
 GameObject:
@@ -3920,7 +3917,6 @@ MonoBehaviour:
   maxHealth: 500
   healthbar: {fileID: 556053413}
   hBarGameobject: {fileID: 556053411}
-  orientWithGround: 0
   debugAssist: 0
 --- !u!1 &690174410
 GameObject:
@@ -5190,7 +5186,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 1944080612}
   hBarGameobject: {fileID: 1944080610}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &928173742
 GameObject:
@@ -6034,7 +6029,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 2095758778}
   hBarGameobject: {fileID: 2095758776}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &1032956805
 GameObject:
@@ -7042,7 +7036,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 822863249}
   hBarGameobject: {fileID: 822863247}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!61 &1179820191
 BoxCollider2D:
@@ -7120,7 +7113,6 @@ MonoBehaviour:
   maxHealth: 250
   healthbar: {fileID: 1322265830}
   hBarGameobject: {fileID: 1322265828}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!61 &1216870856
 BoxCollider2D:
@@ -8826,7 +8818,6 @@ MonoBehaviour:
   maxHealth: 500
   healthbar: {fileID: 1581714057}
   hBarGameobject: {fileID: 1581714055}
-  orientWithGround: 0
   debugAssist: 0
 --- !u!1 &1448169959
 GameObject:
@@ -10762,6 +10753,7 @@ GameObject:
   - component: {fileID: 1700308364}
   - component: {fileID: 1700308363}
   - component: {fileID: 1700308362}
+  - component: {fileID: 1700308365}
   m_Layer: 0
   m_Name: LECanvas
   m_TagString: Untagged
@@ -10850,6 +10842,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 4
   m_TargetDisplay: 0
+--- !u!114 &1700308365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700308360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58de6182c9f1d554da04fe45bc02368c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1703726095
 GameObject:
   m_ObjectHideFlags: 0
@@ -11401,7 +11405,6 @@ MonoBehaviour:
   maxHealth: 500
   healthbar: {fileID: 259606531}
   hBarGameobject: {fileID: 259606529}
-  orientWithGround: 0
   debugAssist: 0
 --- !u!1 &1798618388
 GameObject:
@@ -13239,7 +13242,6 @@ MonoBehaviour:
   maxHealth: 500
   healthbar: {fileID: 1913338026}
   hBarGameobject: {fileID: 1913338023}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!1 &1967101151
 GameObject:
@@ -14878,7 +14880,6 @@ MonoBehaviour:
   maxHealth: 125
   healthbar: {fileID: 928173744}
   hBarGameobject: {fileID: 928173742}
-  orientWithGround: 1
   debugAssist: 0
 --- !u!61 &2126005873
 BoxCollider2D:

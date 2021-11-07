@@ -15,8 +15,8 @@ public class ObjectHealth : MonoBehaviour
     [SerializeField]
     private GameObject hBarGameobject;
     //We create a variable to determine whether we should match our orientation with the ground
-    [SerializeField]
-    private bool orientWithGround;
+    //[SerializeField]
+    //private bool orientWithGround;
     //We create a variable to hold the transform of the ground
     private Transform groundVar;
 
@@ -40,7 +40,7 @@ public class ObjectHealth : MonoBehaviour
         //We set the healthbar to inactive
         hBarGameobject.SetActive(false);
 
-        groundVar = GameObject.Find("Background").GetComponent<Transform>().transform;
+        //groundVar = GameObject.Find("Background").GetComponent<Transform>().transform;
     }
 
     private void Update()
@@ -52,6 +52,7 @@ public class ObjectHealth : MonoBehaviour
             hBarGameobject.SetActive(false);
         }    
 
+        /*
         if (orientWithGround)
         {
             Vector3 myEulerAngles = groundVar.rotation.eulerAngles;
@@ -59,6 +60,8 @@ public class ObjectHealth : MonoBehaviour
 
             this.transform.rotation = HBarRotation;
         }
+
+        */
     }
 
     //Function that deals damage

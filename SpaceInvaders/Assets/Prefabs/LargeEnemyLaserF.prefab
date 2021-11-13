@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6068642201722905131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0.654, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8103335733948227800}
@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 7305135489299174831}
   - component: {fileID: 5925790591308736078}
   - component: {fileID: 8103335733948227745}
-  - component: {fileID: 8068630825208577757}
   m_Layer: 0
   m_Name: LargeEnemyLaserF
   m_TagString: Untagged
@@ -60,9 +59,10 @@ Transform:
   m_GameObject: {fileID: 8103335733948227806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.1065025, y: -1.77, z: -8.696953}
-  m_LocalScale: {x: 1, y: 2.3125, z: 1}
+  m_LocalScale: {x: 1, y: 3.4109375, z: 1}
   m_Children:
   - {fileID: 6248035947948231698}
+  - {fileID: 6174063425776607944}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -152,8 +152,9 @@ MonoBehaviour:
   layerToHit:
     serializedVersion: 2
     m_Bits: 8
-  damageToPlayer: 100
+  damage: 100
   collisionLocation: {fileID: 6248035947948231698}
+  explosionLocation: {fileID: 6174063425776607944}
   explosionEffect: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 3}
   isGizmoOn: 1
 --- !u!50 &8103335733948227745
@@ -177,29 +178,33 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &8068630825208577757
-BoxCollider2D:
+--- !u!1 &8845241290944641428
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103335733948227806}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 2.39}
-    newSize: {x: 0.2, y: 2.39}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 2.39}
-  m_EdgeRadius: 0
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6174063425776607944}
+  m_Layer: 0
+  m_Name: Explosion point1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6174063425776607944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8845241290944641428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.316, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8103335733948227800}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

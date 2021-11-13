@@ -12,7 +12,7 @@ public class LargeEnemy : MonoBehaviour
     [SerializeField]
     private float speed;
     //We create a variable to hold a rigidbody2D
-    private Rigidbody2D se_Rigidbody2D;
+    private Rigidbody2D le_Rigidbody2D;
     //We create a variable to hold the collider that will serve as our barrier
     [SerializeField]
     private CircleCollider2D leBarrier;
@@ -25,6 +25,8 @@ public class LargeEnemy : MonoBehaviour
     private Animator rightThrust;
     [SerializeField]
     private Animator leftThrust;
+    //We create a variable to hold our velocity
+    private Vector2 leVelocity;
 
     [Header("Spawn System")]
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
@@ -78,24 +80,28 @@ public class LargeEnemy : MonoBehaviour
 
         
         //We set our rigidbody variable, create our spawn in list and populate it with spawn points, randomize our start location and set the initial position to our randomized spawn
-        se_Rigidbody2D = GetComponent<Rigidbody2D>();
+        le_Rigidbody2D = GetComponent<Rigidbody2D>();
         _LEspawnpoints = new List<Transform>();
         AddToList(sp1, sp2, sp3, sp4);
         RandomizePosition();
 
+        //We set the LE on the spawn point
         this.transform.position = leSpawnpoint.position;
     }
 
     void Update()
     {
         //We check to see whether we should continue moving. If we are close enough to the base, we stop and initiate our bay door anims
-        if (leBarrier.bounds.Contains(this.transform.position))
+        if (leBarrier.OverlapPoint(transform.position))
         {
             shouldMove = false;
             leBayDoorT.SetBool("InRange", true);
             leBayDoorB.SetBool("InRange", true);
             rightThrust.SetBool("Moving", false);
             leftThrust.SetBool("Moving", false);
+
+            //We reset velocity to be 0 to stop all movement
+            le_Rigidbody2D.velocity = this.transform.position - this.transform.position;
         }
 
         //Once the bay doors are in firing position, we heat up our laser gun
@@ -120,6 +126,9 @@ public class LargeEnemy : MonoBehaviour
     
     void FixedUpdate()
     {
+        //We set the velocity directionally related to head towards the PBase, normalize it and multiply the value by our speed value
+        leVelocity = (PBase.position - this.transform.position).normalized * speed;
+
         //We check if shouldMove is true or false and call our function MoveToLEWaypoint if it is true
         if (shouldMove)
         {
@@ -149,10 +158,10 @@ public class LargeEnemy : MonoBehaviour
     //Here we tell our ship to move towards the player base
     void MoveToLEWaypoint()
     {
-        transform.position = Vector2.MoveTowards(transform.position, PBase.position, speed * Time.deltaTime);
+        le_Rigidbody2D.velocity = leVelocity;
     }
 
-    //We initialize our spawn point by randamizing between four initial spawn points.
+    //We initialize our spawn point by randomizing between four initial spawn points.
     public void RandomizePosition()
     {
         if (_LEspawnpoints != null)
@@ -161,7 +170,7 @@ public class LargeEnemy : MonoBehaviour
             int randNumber = Random.Range(0, 3);
 
             //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[randNumber];
+            leSpawnpoint = _LEspawnpoints[3];
         }
     }
 

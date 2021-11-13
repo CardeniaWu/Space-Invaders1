@@ -16,6 +16,9 @@ public class LaserLogic : MonoBehaviour
     //We create a variable to hold our positional data of where the collision occurred
     [SerializeField]
     private Transform collisionLocation;
+    //We create a variable to hold our positional date of where we want the explosion to occur
+    [SerializeField]
+    private Transform explosionLocation;
 
     [Header("Visual Aethetics")]
     //Here we store our laser animation
@@ -84,7 +87,7 @@ public class LaserLogic : MonoBehaviour
         }
 
         //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
-        GameObject ExplosionEffectIns = Instantiate(explosionEffect, collisionLocation.position, Quaternion.identity);
+        GameObject ExplosionEffectIns = Instantiate(explosionEffect, explosionLocation.position, Quaternion.identity);
         Destroy(ExplosionEffectIns, .75f);
         Destroy(gameObject);
     }

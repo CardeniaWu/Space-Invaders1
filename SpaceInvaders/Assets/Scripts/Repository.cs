@@ -100,5 +100,8 @@ public class Repository : MonoBehaviour
             //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         }
         */
+
+        //How to move a gameobject the incorrect way, not using rigidbodies: Place in FixedUpdate
+        //transform.position = Vector2.MoveTowards(transform.position, PBase.position, speed * Time.deltaTime);
     }
 }

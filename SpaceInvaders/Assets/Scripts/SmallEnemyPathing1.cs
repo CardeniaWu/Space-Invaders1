@@ -14,7 +14,7 @@ public class SmallEnemyPathing1 : MonoBehaviour
     public Transform sp3R;
     public Transform sp4R;
 
-    [Header("Movement & Boundries")]
+    [Header("Movement & Boundaries")]
     //Transform to hold the Small Enemy waypoint
     private Transform waypoint;
     //We create a bool to hold the value to determine whether we spawned on the left or the right
@@ -64,7 +64,6 @@ public class SmallEnemyPathing1 : MonoBehaviour
         {
             lSpawn = false;
         }
-
         //Debug.Log($"seSpawnpoint = ${seSpawnpoint} while lSpawn = ${lSpawn}");
     }
 
@@ -79,27 +78,27 @@ public class SmallEnemyPathing1 : MonoBehaviour
         }
 
         //Here we tell the system to run the RandomizeEnemyWaypoint function again until it is not in the baseOutOfBounds region
-        if (baseOutOfBounds.bounds.Contains(waypoint.position))
+        if (baseOutOfBounds.OverlapPoint(waypoint.position))
         {
             RandomizeEnemyWaypoint();
         }
 
         //Here we check to see whether our  left out of bounds grid area contains the waypoints position and if the timeFromSpawn exceeds timeToMove
         //Change the value of lSpawn to keep the SmallEnemy in the play field of view if both conditions are true
-        if (lOutOfBounds.bounds.Contains(waypoint.position) && timeFromSpawn >= timeToMove)
+        if (lOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove)
         {
             lSpawn = true;
         }
 
         //Here we check to see whether our right out of bounds grid area contains the waypoints position and if the timeFromSpawn exceeds timeToMove
         //Change the value of lSpawn to keep the SmallEnemy in the play field of view if both conditions are true
-        if (rOutOfBounds.bounds.Contains(waypoint.position) && timeFromSpawn >= timeToMove)
+        if (rOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove)
         {
             lSpawn = false;
         }
 
         //Here we test to see whether the waypoints position is out of bounds on top
-        if (topOutOfBounds.bounds.Contains(waypoint.position))
+        if (topOutOfBounds.OverlapPoint(waypoint.position))
         {
             tOutOfBounds = true;
         }
@@ -109,7 +108,7 @@ public class SmallEnemyPathing1 : MonoBehaviour
         }
 
         //Here we test to see whether the waypoints position is out of bounds on the ground
-        if (groundOutOfBounds.bounds.Contains(waypoint.position))
+        if (groundOutOfBounds.OverlapPoint(waypoint.position))
         {
             gOutOfBounds = true;
         }

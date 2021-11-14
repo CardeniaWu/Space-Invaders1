@@ -15,8 +15,6 @@ public class MissileLogic : MonoBehaviour
     private float fieldOfImpact = 0.0f;
     //We create a variable to hold our layermask to tell it what layers to effect.
     public LayerMask layerToHit;
-    //We create a variable to hold our layermask to tell it to hit the innerbase
-    public LayerMask innerBaseLayer;
 
     [Header("Explosions!!!")]
     //We create a variable to hold the damage value of enemy missiles.
@@ -25,8 +23,14 @@ public class MissileLogic : MonoBehaviour
     //We create a variable to hold our explosion effect.
     [SerializeField]
     private GameObject explosionEffect;
-    //We create a list to hold the colliders that are affected by missile impact
-    Collider2D[] impactedObject;
+    //We create a variable to hold the GameObject for the innerbase
+    private GameObject innerBase;
+    //We create a variable to hold the circle collider for the innerbase
+    private CircleCollider2D innerBaseCircleCollider;
+    //We create a float to hold our damage to the player
+    private float dmgToPlayer;
+    //We create a bool to limit our damage output
+    private bool dmgLimiter;
 
     [Header("UI")]
     //Here we create a bool to store a value to determine whether the missile fieldOfImpact gizmo is on.
@@ -38,6 +42,10 @@ public class MissileLogic : MonoBehaviour
     void Start()
     {
         rb2D.velocity = transform.right * moveSpeed;
+
+        innerBase = GameObject.Find("innerbase").GetComponent<GameObject>();
+
+        innerBaseCircleCollider = innerBase.GetComponent<CircleCollider2D>();
     }
 
     private void FixedUpdate()
@@ -66,9 +74,15 @@ public class MissileLogic : MonoBehaviour
 
             float dmgMultiplier = 1 / distanceFromObj;
 
-            float dmgToPlayer = damage * dmgMultiplier;
+            if (innerBaseCircleCollider.OverlapPoint(transform.position) != true)
+            {
+                dmgToPlayer = damage * dmgMultiplier;
+            } else 
+            {
+                dmgToPlayer = (damage * dmgMultiplier) * 2;
+            }
 
-            if (dmgToPlayer > 20)
+            if (dmgToPlayer > 20 && dmgLimiter)
             {
                 dmgToPlayer = 20;
             }
@@ -86,6 +100,8 @@ public class MissileLogic : MonoBehaviour
         GameObject ExplosionEffectIns = Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(ExplosionEffectIns, .5f);
         Destroy(gameObject);
+
+
     }
 
     //We use this function to visually track the field of impact from these missiles

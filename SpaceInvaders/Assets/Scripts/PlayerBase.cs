@@ -15,24 +15,56 @@ public class PlayerBase : MonoBehaviour
     //We create two variables to hold our initial generators
     public Transform generator;
     public Transform generator1;
+    //We create two floats to hold our time and energy tick variables and one int to hold the power level
     public float energyTime = 0.0f;
     public float energyTick = 0.0f;
     public int pwrLvl = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("PBase Health System")]
+    //We create a list to hold our object health values
+    private List<float> _pBaseObjectHealth;
+    //We create a list to grab all the child gameobjects
+    private List<GameObject> _pBaseChildWithObjectHealth;
+    //We create a variable to hold our pBase Health value
+    public float pBaseHealth = 0.0f;
+    //We create a variable to hold our inner base health
+    public float innerBaseHealth = 1000.0f;
+    //Bool to check whether we've pulled our object health yet
+    private bool objectHealthPull = false;
+    //We create two variables to hold our healthsystem script and our healthbar
+    [SerializeField]
+    private HealthSystem healthbar;
+    [SerializeField]
+    private GameObject hBarGameobject;
+
+    /*
+    7. Modify laser logic and missile logic to deal damage to inner base once the outer base layers have been destroyed to account for the additional 1000 health the base has tacked on
+    */
+
+    void Awake()
     {
         //We create the _generators list
         _generators = new List<Transform>();
         //And add in the two generator gameObjects
         _generators.Add(generator);
         _generators.Add(generator1);
+
+        _pBaseChildWithObjectHealth = new List<GameObject>();
+        _pBaseObjectHealth = new List<float>();
     }
 
     // Update is called once per frame
     void Update()
     {
         pwrLvlText.GetComponent<TextMeshProUGUI>().text = pwrLvl.ToString();
+
+        //We check whether PullObjectHealth has been run and if not we run it, set our health bar to the pBaseHealth value and turn objectHealthPull to true
+        if (objectHealthPull == false)
+        {
+            PullObjectHealth();
+            healthbar.SetMaxHealth(pBaseHealth);
+            objectHealthPull = true;
+        }
     }
 
     private void FixedUpdate()
@@ -46,5 +78,51 @@ public class PlayerBase : MonoBehaviour
             int energyTickInt = (int)energyTick;
             pwrLvl = energyTickInt;
         }
+
+        //We consistently update our healthbar with the pBaseHealth to account for damage taken
+        healthbar.SetHealth(pBaseHealth);
     }
+
+    void PullObjectHealth()
+    {
+        //Grab all children and only keep the ones with PlayerBase tags
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "PlayerBase")
+            {
+                _pBaseChildWithObjectHealth.Add(child.gameObject);
+            }
+        }
+        
+        foreach (GameObject child in _pBaseChildWithObjectHealth)
+        {
+            _pBaseObjectHealth.Add(child.GetComponent<ObjectHealth>().currentHealth);
+        }
+
+        foreach (float health in _pBaseObjectHealth)
+        {
+            pBaseHealth = pBaseHealth + health;
+        }
+
+        pBaseHealth = pBaseHealth + innerBaseHealth;
+    }
+
+
+/*
+    //Function that deals damage
+    public void TakeDamage(float damage)
+    {
+        if (pBaseHealth > 0)
+        {
+            //Subtract damage value from currentHealth
+            pBaseHealth -= damage;
+        }
+
+        //Set the healthbar to the current health value
+        healthbar.SetHealth(pBaseHealth);
+
+        Debug.Log($"This {this} took {damage} damage and has {pBaseHealth} remaining.");
+    }
+
+    */
 }

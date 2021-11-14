@@ -207,9 +207,10 @@ MonoBehaviour:
   layerToHit:
     serializedVersion: 2
     m_Bits: 8
-  turnRate: 100
-  rotationGoal: {fileID: 8783474237016878607}
-  damageToPlayer: 20
+  innerBaseLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  damage: 20
   explosionEffect: {fileID: 4930208497739250417, guid: 53fc85cd34590b14999d0f5ef9971bf2, type: 3}
   isGizmoOn: 0
 --- !u!50 &3527940071356883056

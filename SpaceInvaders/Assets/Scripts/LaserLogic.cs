@@ -32,17 +32,6 @@ public class LaserLogic : MonoBehaviour
     //Here we create a bool to store a value to determine whether the laser fieldOfImpact gizmo is on.
     private bool isGizmoOn;
 
-
-    /*
-     * 1. Let anim play
-     * 2. Spawn in explosion when the anim switches to "LaserFire"
-     * 3. Gather list of objects effected
-     * 4. Calculate dmg dealt
-     * 5. Apply dmg
-     * 
-     * 
-    */
-
     // Start is called before the first frame update
     void Start()
     {

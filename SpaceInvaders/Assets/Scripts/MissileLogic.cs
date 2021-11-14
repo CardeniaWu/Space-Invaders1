@@ -15,6 +15,8 @@ public class MissileLogic : MonoBehaviour
     private float fieldOfImpact = 0.0f;
     //We create a variable to hold our layermask to tell it what layers to effect.
     public LayerMask layerToHit;
+    //We create a variable to hold our layermask to tell it to hit the innerbase
+    public LayerMask innerBaseLayer;
 
     [Header("Explosions!!!")]
     //We create a variable to hold the damage value of enemy missiles.
@@ -23,6 +25,8 @@ public class MissileLogic : MonoBehaviour
     //We create a variable to hold our explosion effect.
     [SerializeField]
     private GameObject explosionEffect;
+    //We create a list to hold the colliders that are affected by missile impact
+    Collider2D[] impactedObject;
 
     [Header("UI")]
     //Here we create a bool to store a value to determine whether the missile fieldOfImpact gizmo is on.
@@ -43,7 +47,7 @@ public class MissileLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D obj)
     {
-        //We test whether the gameObjects collided with have the requisite tags to trigger a reactoin. If true, we call the explosion script.
+        //We test whether the gameObjects collided with have the requisite tags to trigger a reaction. If true, we call the explosion script.
         if (obj.tag == "PlayerBase" || obj.tag == "Ground")
         {
             Explosion();
@@ -55,7 +59,7 @@ public class MissileLogic : MonoBehaviour
         //We collect all the collider2D objects in a list based on whether they were in the field of impact and had the correct layer to be effected
         Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, fieldOfImpact, layerToHit);
 
-        //We iterate through the list of colliders effected and calculate a dmg multiplier then apply dmg as necessary
+        //We iterate through the list of colliders affected and calculate a dmg multiplier then apply dmg as necessary
         foreach (Collider2D obj in objects)
         {
             float distanceFromObj = Vector3.Distance(obj.transform.position, this.transform.position);

@@ -71,8 +71,6 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lvlCountTxt.GetComponent<TextMeshProUGUI>().text = levelCount.ToString();
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GamePause();
@@ -82,6 +80,11 @@ public class GameHandler : MonoBehaviour
         if (roundTime > 5)
         {
             lvlChangeNotification.SetBool("WaveNotificationStart", false);
+        }
+
+        if (roundTime >= 10)
+        {
+            lvlCountTxt.GetComponent<TextMeshProUGUI>().text = levelCount.ToString();
         }
     }
 

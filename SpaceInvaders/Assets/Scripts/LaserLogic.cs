@@ -19,6 +19,15 @@ public class LaserLogic : MonoBehaviour
     //We create a variable to hold our positional date of where we want the explosion to occur
     [SerializeField]
     private Transform explosionLocation;
+    //We create a variable to hold our positional data of the transform that will perform our 
+    //bool check of whether an object is in the way of hitting the inner base
+    [SerializeField]
+    private Transform outerBaseCheckPoint;
+    //We create a variable to hold our check distance
+    [SerializeField]
+    private float checkDistance = 0.0f;
+    //We create a variable to hold our damage to player variable
+    private float dmgToPlayer;
 
     [Header("Visual Aethetics")]
     //Here we store our laser animation
@@ -58,7 +67,7 @@ public class LaserLogic : MonoBehaviour
             
             float dmgMultiplier = 1 / distanceFromObj;
 
-            float dmgToPlayer = damage * dmgMultiplier;
+            dmgToPlayer = damage * dmgMultiplier;
                 
             if (dmgToPlayer > 100)
             {
@@ -75,6 +84,14 @@ public class LaserLogic : MonoBehaviour
             }
         }
 
+        Collider2D[] outerBaseCheck = Physics2D.OverlapCircleAll(outerBaseCheckPoint.position, checkDistance, layerToHit);
+
+        if (outerBaseCheck.Length == 0)
+        {
+            dmgToPlayer = damage * 2;
+            GameObject.Find("PlayerBase").GetComponent<PlayerBase>().InnerBaseDmg(dmgToPlayer);
+        }
+
         //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
         GameObject ExplosionEffectIns = Instantiate(explosionEffect, explosionLocation.position, Quaternion.identity);
         Destroy(ExplosionEffectIns, .75f);
@@ -89,6 +106,7 @@ public class LaserLogic : MonoBehaviour
         if (isGizmoOn)
         {
             Gizmos.DrawWireSphere(collisionLocation.position, fieldOfImpact);
+            Gizmos.DrawWireSphere(outerBaseCheckPoint.position, checkDistance);
         }
     }
 }

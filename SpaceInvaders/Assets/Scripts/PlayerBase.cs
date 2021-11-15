@@ -37,10 +37,6 @@ public class PlayerBase : MonoBehaviour
     [SerializeField]
     private GameObject hBarGameobject;
 
-    /*
-    7. Modify laser logic and missile logic to deal damage to inner base once the outer base layers have been destroyed to account for the additional 1000 health the base has tacked on
-    */
-
     void Awake()
     {
         //We create the _generators list
@@ -107,22 +103,19 @@ public class PlayerBase : MonoBehaviour
         pBaseHealth = pBaseHealth + innerBaseHealth;
     }
 
-
-/*
-    //Function that deals damage
-    public void TakeDamage(float damage)
+    public void InnerBaseDmg(float damage)
     {
-        if (pBaseHealth > 0)
+        if (innerBaseHealth - damage > 0)
         {
-            //Subtract damage value from currentHealth
+            innerBaseHealth -= damage;
             pBaseHealth -= damage;
+        } else if (innerBaseHealth - damage <= 0)
+        {
+            innerBaseHealth = 0;
         }
 
-        //Set the healthbar to the current health value
         healthbar.SetHealth(pBaseHealth);
 
-        Debug.Log($"This {this} took {damage} damage and has {pBaseHealth} remaining.");
+        Debug.Log($"This base has taken {damage} damage!");
     }
-
-    */
 }

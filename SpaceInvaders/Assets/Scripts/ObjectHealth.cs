@@ -49,11 +49,14 @@ public class ObjectHealth : MonoBehaviour
     //Function that deals damage
     public void TakeDamage(float damage)
     {
-        if (currentHealth > 0)
+        if (currentHealth - damage > 0)
         {
             //Subtract damage value from currentHealth
             currentHealth -= damage;
             GameObject.Find("PlayerBase").GetComponent<PlayerBase>().pBaseHealth -= damage;
+        } else if (currentHealth - damage <= 0)
+        {
+            currentHealth = 0;
         }
 
         //Set the healthbar to the current health value

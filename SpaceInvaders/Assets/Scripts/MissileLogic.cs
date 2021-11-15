@@ -23,14 +23,14 @@ public class MissileLogic : MonoBehaviour
     //We create a variable to hold our explosion effect.
     [SerializeField]
     private GameObject explosionEffect;
-    //We create a variable to hold the GameObject for the innerbase
-    private GameObject innerBase;
     //We create a variable to hold the circle collider for the innerbase
     private CircleCollider2D innerBaseCircleCollider;
     //We create a float to hold our damage to the player
     private float dmgToPlayer;
     //We create a bool to limit our damage output
     private bool dmgLimiter;
+    //We create a float to carry our damage multiplier
+    private float dmgMultiplier;
 
     [Header("UI")]
     //Here we create a bool to store a value to determine whether the missile fieldOfImpact gizmo is on.
@@ -43,9 +43,7 @@ public class MissileLogic : MonoBehaviour
     {
         rb2D.velocity = transform.right * moveSpeed;
 
-        innerBase = GameObject.Find("innerbase").GetComponent<GameObject>();
-
-        innerBaseCircleCollider = innerBase.GetComponent<CircleCollider2D>();
+        innerBaseCircleCollider = GameObject.Find("innerbase").GetComponent<CircleCollider2D>();
     }
 
     private void FixedUpdate()
@@ -74,15 +72,9 @@ public class MissileLogic : MonoBehaviour
 
             float dmgMultiplier = 1 / distanceFromObj;
 
-            if (innerBaseCircleCollider.OverlapPoint(transform.position) != true)
-            {
-                dmgToPlayer = damage * dmgMultiplier;
-            } else 
-            {
-                dmgToPlayer = (damage * dmgMultiplier) * 2;
-            }
+            dmgToPlayer = damage * dmgMultiplier;
 
-            if (dmgToPlayer > 20 && dmgLimiter)
+            if (dmgToPlayer > 20)
             {
                 dmgToPlayer = 20;
             }
@@ -96,11 +88,16 @@ public class MissileLogic : MonoBehaviour
             }
         }
 
+        if (innerBaseCircleCollider.OverlapPoint(transform.position) == true) 
+            {
+                dmgToPlayer = damage * 2;
+                GameObject.Find("PlayerBase").GetComponent<PlayerBase>().InnerBaseDmg(dmgToPlayer);
+            }
+
         //Here we instantiate an explosion effect, have it last for half a second, then destroy both the explosion and the missile game objects
         GameObject ExplosionEffectIns = Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(ExplosionEffectIns, .5f);
         Destroy(gameObject);
-
 
     }
 

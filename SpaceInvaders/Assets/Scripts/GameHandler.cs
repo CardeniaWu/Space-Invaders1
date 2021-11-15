@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameHandler : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class GameHandler : MonoBehaviour
     public bool isPaused;
 
     [Header("Timer System")]
+    //We create a timer to track time between rounds and a time limit between rounds
+    public float nonRoundTime = 0.0f;
+    public float nonRoundTimeLimit = 30.0f;
+
+    [Header("Level Count System")]
+    [SerializeField]
+    private GameObject lvlCountTxt;
     //We create our variables for global and round time as well as level count and round limit time
     public float globalTime = 0.0f;
     public float roundTime = 0.0f;
@@ -18,9 +26,11 @@ public class GameHandler : MonoBehaviour
     public int levelCount = 0;
     //We create a bool to track whether the round is active at any given time.
     public bool roundActive;
-    //We create a timer to track time between rounds and a time limit between rounds
-    public float nonRoundTime = 0.0f;
-    public float nonRoundTimeLimit = 30.0f;
+    //We create a bool to see if this is the tutorial level
+    private bool isTutorialLvl= true;
+    //We create a variable to hold our animator for the level notification anim
+    [SerializeField]
+    private Animator lvlChangeNotification;
 
     private void Start()
     {
@@ -61,9 +71,17 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lvlCountTxt.GetComponent<TextMeshProUGUI>().text = levelCount.ToString();
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GamePause();
+        }
+
+        //We check the round time and set the lvlChangeNotification to false if it exceeds 5 seconds
+        if (roundTime > 5)
+        {
+            lvlChangeNotification.SetBool("WaveNotificationStart", false);
         }
     }
 
@@ -109,10 +127,21 @@ public class GameHandler : MonoBehaviour
 
     public void RoundStart()
     {
-        //We increase the level count, ascribe roundTime to Time.fixedDeltaTime and turn our bool roundActive true
-        levelCount++;
-        roundTime += Time.fixedDeltaTime;
-        roundActive = true;
+        if (isTutorialLvl)
+        {
+            //We do not increase the level count on the tutorial level but we still count round time and turn isTutorialLvl to false
+            roundTime += Time.fixedDeltaTime;
+            roundActive = true;
+            isTutorialLvl = false;
+        } else
+        {
+            //We increase the level count, ascribe roundTime to Time.fixedDeltaTime and turn our bool roundActive true
+            levelCount++;
+            roundTime += Time.fixedDeltaTime;
+            roundActive = true;
+        }
+
+        lvlChangeNotification.SetBool("WaveNotificationStart", true);
     }
 
     public void RoundEnd()

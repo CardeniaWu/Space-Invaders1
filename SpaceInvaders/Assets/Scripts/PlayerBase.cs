@@ -112,10 +112,11 @@ public class PlayerBase : MonoBehaviour
         } else if (innerBaseHealth - damage <= 0)
         {
             innerBaseHealth = 0;
+            pBaseHealth -= damage;
         }
 
         healthbar.SetHealth(pBaseHealth);
 
-        Debug.Log($"This base has taken {damage} damage!");
+        Debug.Log($"This base has taken {damage} damage! Total health remaining: {pBaseHealth}. Inner Base health remaining: {innerBaseHealth}");
     }
 }

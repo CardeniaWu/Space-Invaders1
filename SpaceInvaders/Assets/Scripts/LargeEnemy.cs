@@ -60,7 +60,7 @@ public class LargeEnemy : MonoBehaviour
     void Start()
     {
         //We will grab our variables for the PBase and leBarrier
-        PBase = GameObject.Find("PlayerBase").GetComponent<Transform>();
+        PBase = GameObject.Find("NuclearReactor").GetComponent<Transform>();
         leBarrier = GameObject.Find("LEBarrier").GetComponent<CircleCollider2D>();
         
         //We set our rigidbody variable, create our spawn in list and populate it with spawn points, randomize our start location and set the initial position to our randomized spawn

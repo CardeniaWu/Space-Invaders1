@@ -203,7 +203,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -221,18 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6226b69a037a58949b3e172048e5b24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seSpawnpoint: {fileID: 0}
-  _spawnpoints: []
-  sp1L: {fileID: 0}
-  sp2L: {fileID: 0}
-  sp3R: {fileID: 0}
-  sp4R: {fileID: 0}
   speed: 1.5
-  lOutOfBounds: {fileID: 0}
-  rOutOfBounds: {fileID: 0}
-  topOutOfBounds: {fileID: 0}
-  groundOutOfBounds: {fileID: 0}
-  baseOutOfBounds: {fileID: 0}
   timeFromSpawn: 0
   waypointPrefab: {fileID: 2195810634833852704, guid: a545a17b71f1d594396d350ee6fda05a, type: 3}
 --- !u!114 &7993684280312710902
@@ -348,7 +337,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -633,7 +622,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

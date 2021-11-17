@@ -51,9 +51,9 @@ public class GameHandler : MonoBehaviour
     //Bool to test which side of the screen the SE spawned on
     public bool seLSpawn;
     //bool for testing purposes to see if the SE has been spawned yet
-    private bool seSpawnedYet = false;
+    private int seSpawnedYet = 0;
     //bool for testing purposes to see if the LE has been spawned yet
-    private bool leSpawnedYet = false;
+    private int leSpawnedYet = 0;
 
     [Header("LE Spawn System")]
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
@@ -145,16 +145,16 @@ public class GameHandler : MonoBehaviour
             lvlCountTxt.GetComponent<TextMeshProUGUI>().text = levelCount.ToString();
         }
 
-        if (seSpawnedYet == false)
+        if (seSpawnedYet < 5)
         {
             SpawnSmallEnemy();
-            seSpawnedYet = true;
+            seSpawnedYet++;
         }
 
-        if (leSpawnedYet == false)
+        if (leSpawnedYet < 5)
         {
             SpawnLargeEnemy();
-            leSpawnedYet = true;
+            leSpawnedYet++;
         }
     }
 

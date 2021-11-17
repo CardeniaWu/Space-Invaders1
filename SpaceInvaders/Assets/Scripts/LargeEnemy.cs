@@ -6,7 +6,6 @@ public class LargeEnemy : MonoBehaviour
 {
     [Header("Movement")]
     //We create a variable to hold our desired waypoint
-    [SerializeField]
     private Transform PBase;
     //We create a variable to hold our speed variable
     [SerializeField]
@@ -14,7 +13,6 @@ public class LargeEnemy : MonoBehaviour
     //We create a variable to hold a rigidbody2D
     private Rigidbody2D le_Rigidbody2D;
     //We create a variable to hold the collider that will serve as our barrier
-    [SerializeField]
     private CircleCollider2D leBarrier;
     //We create a bool to tell us whether to move forward or not
     private bool shouldMove = true;
@@ -27,21 +25,6 @@ public class LargeEnemy : MonoBehaviour
     private Animator leftThrust;
     //We create a variable to hold our velocity
     private Vector2 leVelocity;
-
-    [Header("Spawn System")]
-    //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
-    [SerializeField]
-    private List<Transform> _LEspawnpoints;
-    [SerializeField]
-    private Transform sp1;
-    [SerializeField]
-    private Transform sp2;
-    [SerializeField]
-    private Transform sp3;
-    [SerializeField]
-    private Transform sp4;
-    //We create a transform variable to hold the value of the LE spawn point
-    private Transform leSpawnpoint;
 
     
     [Header("Shooting System")]
@@ -76,17 +59,12 @@ public class LargeEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //We grab the LEHBar and set it's position to be above our LE
-
+        //We will grab our variables for the PBase and leBarrier
+        PBase = GameObject.Find("PlayerBase").GetComponent<Transform>();
+        leBarrier = GameObject.Find("LEBarrier").GetComponent<CircleCollider2D>();
         
         //We set our rigidbody variable, create our spawn in list and populate it with spawn points, randomize our start location and set the initial position to our randomized spawn
         le_Rigidbody2D = GetComponent<Rigidbody2D>();
-        _LEspawnpoints = new List<Transform>();
-        AddToList(sp1, sp2, sp3, sp4);
-        RandomizePosition();
-
-        //We set the LE on the spawn point
-        this.transform.position = leSpawnpoint.position;
     }
 
     void Update()
@@ -161,19 +139,6 @@ public class LargeEnemy : MonoBehaviour
         le_Rigidbody2D.velocity = leVelocity;
     }
 
-    //We initialize our spawn point by randomizing between four initial spawn points.
-    public void RandomizePosition()
-    {
-        if (_LEspawnpoints != null)
-        {
-            //We declare a random number between 0 & 3
-            int randNumber = Random.Range(0, 3);
-
-            //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            leSpawnpoint = _LEspawnpoints[randNumber];
-        }
-    }
-
     //Pew Pew
     void FireLaser()
     {
@@ -183,15 +148,6 @@ public class LargeEnemy : MonoBehaviour
 
         //Instantiate the laser
         instantiatedLaser = Instantiate(prefabLaser, laserSpawn.position, laserRotation);
-    }
-
-    //Nifty AddToList function
-    void AddToList(params Transform[] list)
-    {
-        for (int i = 0; i < list.Length; i++)
-        {
-            _LEspawnpoints.Add(list[i]);
-        }
     }
 
     // Here we draw Gizmo rays from the turrets to enable us to see the prospective missile trajectory

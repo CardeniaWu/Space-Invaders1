@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class SmallEnemyPathing1 : MonoBehaviour
 {
-    [Header("Spawn System")]
-    //Transform to hold the spawn point of the SmallEnemy
-    public Transform seSpawnpoint;
-    //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
-    public List<Transform> _spawnpoints;
-    public Transform sp1L;
-    public Transform sp2L;
-    public Transform sp3R;
-    public Transform sp4R;
-
     [Header("Movement & Boundaries")]
     //Transform to hold the Small Enemy waypoint
     private Transform waypoint;
@@ -24,11 +14,11 @@ public class SmallEnemyPathing1 : MonoBehaviour
     //We set a float for speed
     public float speed = .5f;
     //We create a public BoxCollider variable to hold our left, right, top, bottom & base out of bounds boxes
-    public BoxCollider2D lOutOfBounds;
-    public BoxCollider2D rOutOfBounds;
-    public BoxCollider2D topOutOfBounds;
-    public BoxCollider2D groundOutOfBounds;
-    public BoxCollider2D baseOutOfBounds;
+    private BoxCollider2D lOutOfBounds;
+    private BoxCollider2D rOutOfBounds;
+    private BoxCollider2D topOutOfBounds;
+    private BoxCollider2D groundOutOfBounds;
+    private BoxCollider2D baseOutOfBounds;
     //This bool is to test whether the SmallEnemy is in the top or ground out of bounds regions and act accordingly
     bool tOutOfBounds = false;
     bool gOutOfBounds = false;
@@ -44,27 +34,19 @@ public class SmallEnemyPathing1 : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        //We declare the list of spawnpoints and assign the GameObjects to the list
-        _spawnpoints = new List<Transform>();
-        AddToList(sp1L, sp2L, sp3R, sp4R);
+        //We find and assign our out of bounds variables
+        lOutOfBounds = GameObject.Find("lOutOfBounds").GetComponent<BoxCollider2D>();
+        rOutOfBounds = GameObject.Find("rOutOfBounds").GetComponent<BoxCollider2D>();
+        topOutOfBounds = GameObject.Find("topOutOfBounds").GetComponent<BoxCollider2D>();
+        groundOutOfBounds = GameObject.Find("groundOutOfBounds").GetComponent<BoxCollider2D>();
+        baseOutOfBounds = GameObject.Find("baseOutOfBounds").GetComponent<BoxCollider2D>();
 
-        //We call our functionRandomizePosition and make the position of this gameobject equal to that of seSPawnpoint.position
-        RandomizePosition();
-        this.transform.position = seSpawnpoint.position;
         //Here we instantiate our waypoint before calling the RandomizeEnemyWaypoint function
         waypoint = Instantiate(waypointPrefab);
         RandomizeEnemyWaypoint();
 
-        //We create an if statement to tell us whether lSpawn is true or false
-        if (seSpawnpoint == sp1L || seSpawnpoint == sp2L)
-        {
-            lSpawn = true;
-        }
-        else
-        {
-            lSpawn = false;
-        }
-        //Debug.Log($"seSpawnpoint = ${seSpawnpoint} while lSpawn = ${lSpawn}");
+        //We pull the lspawn variable from the GameHandler gameobject 
+        lSpawn = GameObject.Find("GameHandler").GetComponent<GameHandler>().seLSpawn;
     }
 
     // Update is called once per frame
@@ -124,27 +106,6 @@ public class SmallEnemyPathing1 : MonoBehaviour
         timeFromSpawn += Time.deltaTime;
 
         MoveToEWaypoint();
-    }
-
-    void AddToList(params Transform[] list)
-    {
-        for (int i = 0; i < list.Length; i++)
-        {
-            _spawnpoints.Add(list[i]);
-        }
-    }
-
-    //This function helps up to randomize the Small Enemy Spawn point
-    public void RandomizePosition()
-    {
-        if (_spawnpoints != null)
-        {
-            //We declare a random number between 0 & 3
-            int randNumber = Random.Range(0, 3);
-
-            //Then we use that # to tell our SmallEnemy which spawnpoint it should spawn on.
-            seSpawnpoint = _spawnpoints[randNumber];
-        }
     }
 
     //Bool list to test all our variables and determine where the SE should head next

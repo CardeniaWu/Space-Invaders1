@@ -20,10 +20,14 @@ public class GameHandler : MonoBehaviour
     [SerializeField]
     private GameObject lvlCountTxt;
     //We create our variables for global and round time as well as level count and round limit time
-    public float globalTime = 0.0f;
-    public float roundTime = 0.0f;
-    public float roundTimeLimit = 240.0f;
-    public int levelCount = 0;
+    [SerializeField]
+    private float globalTime = 0.0f;
+    [SerializeField]
+    private float roundTime = 0.0f;
+    [SerializeField]
+    private float roundTimeLimit = 240.0f;
+    [SerializeField]
+    private int levelCount = 0;
     //We create a bool to track whether the round is active at any given time.
     public bool roundActive;
     //We create a bool to see if this is the tutorial level
@@ -31,6 +35,14 @@ public class GameHandler : MonoBehaviour
     //We create a variable to hold our animator for the level notification anim
     [SerializeField]
     private Animator lvlChangeNotification;
+    //We create a list of ints to hold the enemy counts we want to output per the level count
+    private List<int> _enemyCounts;
+    //We create two lists to hold the time we want to spawn our large enemies and small enemies
+    private List<float> _seSpawnTime;
+    private List<float> _leSpawnTime;
+    //We create two floats to hold the values between which we want all our enemies to spawn in during a level
+    private float begEnemySpawn = 15.0f;
+    private float endEnemySpawn = 0.0f;
 
     [Header("Enemy Instantiation")]
     //We create variables to hold our small enemy and large enemy prefabs
@@ -65,12 +77,15 @@ public class GameHandler : MonoBehaviour
     //We create a transform variable to hold the value of the LE spawn point
     private Transform leSpawnpoint;
 
+    /*
+    3. Create a spawning system
+        a. 
+
+    */
+
 
     private void Start()
     {
-        //We ensure round one begins as soon as the game starts
-        RoundStart();
-
         //We assign our SE spawn points to transform values for the corresponding game objects
         sesp1L = GameObject.Find("SESpawnLeft").GetComponent<Transform>();
         sesp2L = GameObject.Find("SESpawnLeft1").GetComponent<Transform>();
@@ -89,11 +104,23 @@ public class GameHandler : MonoBehaviour
         //We initialize the list that will hold our LE spawnpoint
         _LEspawnpoints = new List<Transform>();
 
+        //We initialize the list that will hold our enemy count out per level
+        _enemyCounts = new List<int>();
+        _enemyCounts.Add(0);
+        _enemyCounts.Add(0);
+
+        //We initialize the lists for our spawn timers
+        _seSpawnTime = new List<float>();
+        _leSpawnTime = new List<float>();
+
         //Then we add the spawnpoints to the list
         AddToSEList(sesp1L, sesp2L, sesp3R, sesp4R);
 
         //Then we add the spawnpoints to the list
         AddToLEList(lesp1L, lesp2L, lesp3R, lesp4R);
+
+        //We ensure round one begins as soon as the game starts
+        RoundStart();
     }
 
 
@@ -113,7 +140,7 @@ public class GameHandler : MonoBehaviour
         }
 
         //We check to see if the roundTime exceeds the roundTimeLimit. If it does, we call the RoundEnd function
-        if (roundTime >= roundTimeLimit)
+        if (roundTime >= roundTimeLimit && levelCount < 4)
         {
             RoundEnd();
         }
@@ -215,7 +242,11 @@ public class GameHandler : MonoBehaviour
             roundActive = true;
         }
 
+        //We begin the lvl change notification anim
         lvlChangeNotification.SetBool("WaveNotificationStart", true);
+
+        //We set our enemy spawn count for the level
+        DetermineEnemyCountPerLvl();
     }
 
     //We create a function that ends the round
@@ -300,5 +331,112 @@ public class GameHandler : MonoBehaviour
         }
 
         return leSpawnpoint;
+    }
+
+
+    //We create a function to check the level count and output a certain level 
+    private void DetermineEnemyCountPerLvl()
+    {
+        //This switch statement takes the level count and outputs values for the enemies to be spawned per level
+        //_enemyCounts[0] holds the value for small enemies spawning while _enemyCounts[1] hold sthe value for the large enemies spawning
+        switch (levelCount)
+        {
+            case 0:
+            _enemyCounts.Add(1);
+            _enemyCounts.Add(0);
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+
+            case 1:
+            _enemyCounts[0] = 5;
+            _enemyCounts[1] = 0;
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+
+            case 2:
+            _enemyCounts[0] = 10;
+            _enemyCounts[1] = 0;
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+
+            case 3:
+            _enemyCounts[0] = 12;
+            _enemyCounts[1] = 1;
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+
+            case 4:
+            _enemyCounts[0] = 15;
+            _enemyCounts[1] = 2;
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+
+            case 5:
+            _enemyCounts[0] = 20;
+            _enemyCounts[1] = 5;
+            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            break;
+        }
+    }
+
+    //We create a function to determine the start and end time of when enemies should spawn and then sets a random value in between that range for when 
+    //the SEs and LEs will spawn
+    private void SetSpawnFrequency()
+    {
+        //This switch statement sets a differing end enemy spawn time per level so levels with less enemies have quicker spawn rates than those with more enemies
+        switch (levelCount)
+        {
+            case 0:
+            endEnemySpawn = 15.0f;
+            break;
+
+            case 1:
+            endEnemySpawn = 30.0f;
+            break;
+
+            case 2:
+            endEnemySpawn = 45.0f;
+            break;
+
+            case 3:
+            endEnemySpawn = 60.0f;
+            break;
+
+            case 4:
+            endEnemySpawn = 75.0f;
+            break;
+
+            case 5: 
+            endEnemySpawn = 120.0f;
+            break;
+        }
+
+        //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the small enemies
+        for (int i = 0; i < _enemyCounts[0]; i++)
+        {
+            float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
+            
+            if (_seSpawnTime.Count < i)
+            {
+                _seSpawnTime.Add(randTime);
+            } else
+            {
+                _seSpawnTime[i - 1] = randTime;
+            }
+        }
+
+        //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the large enemies
+        for (int i = 0; i < _enemyCounts[1]; i++)
+        {
+            float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
+
+            if (_leSpawnTime.Count < i)
+            {
+                _leSpawnTime.Add(randTime);
+            } else
+            {
+                _leSpawnTime[i - 1] = randTime;
+            }
+        }
     }
 }

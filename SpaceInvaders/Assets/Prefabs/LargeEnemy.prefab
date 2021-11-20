@@ -863,9 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ce2258589369a458f2f3752cb83808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PBase: {fileID: 0}
   speed: 5
-  leBarrier: {fileID: 0}
   rightThrust: {fileID: 7677198877947738472}
   leftThrust: {fileID: 7677198878417894118}
   leBayDoorT: {fileID: 7677198877193792105}

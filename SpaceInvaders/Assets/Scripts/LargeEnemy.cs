@@ -26,6 +26,10 @@ public class LargeEnemy : MonoBehaviour
     //We create a variable to hold our velocity
     private Vector2 leVelocity;
 
+    [Header("Round End Logic")]
+    //We create a bool to hold the value to tell us whether the round is ending or not
+    private bool roundEnd = false;
+
     
     [Header("Shooting System")]
     //We create a two variables to hold our bay door animators 
@@ -83,7 +87,7 @@ public class LargeEnemy : MonoBehaviour
         }
 
         //Once the bay doors are in firing position, we heat up our laser gun
-        if (leBayDoorB.GetCurrentAnimatorStateInfo(0).IsName("LEBDBFiring"))
+        if (leBayDoorB.GetCurrentAnimatorStateInfo(0).IsName("LEBDBFiring") && roundEnd == false)
         {
             LEFire.SetBool("FireReady", true);
         }
@@ -99,6 +103,33 @@ public class LargeEnemy : MonoBehaviour
         if (LEFire.GetCurrentAnimatorStateInfo(0).IsName("LEFire"))
         {
             shouldFire = true;
+        }
+
+        //We pull the bool from our Gamehandler script which tells us whether the round is active or not and set roundEnd to the opposite of that
+        if (GameObject.Find("GameHandler").GetComponent<GameHandler>().roundActive == false)
+        {
+            roundEnd = true;
+        } else
+        {
+            roundEnd = false;
+        }
+
+        if (roundEnd)
+        {
+            LEFire.SetBool("RoundEnd", true);
+            leBayDoorB.SetFloat("Direction", -1);
+            leBayDoorT.SetFloat("Direction", -1);
+        }
+        
+        if (roundEnd && LEFire.GetCurrentAnimatorStateInfo(0).IsName("LEFire"))
+        {
+            LEFire.SetFloat("Direction", -1);
+        }
+
+        if (roundEnd && LEFire.GetCurrentAnimatorStateInfo(0).IsName("Waiting"))
+        {
+            leBayDoorT.SetBool("RoundEnd", true);
+            leBayDoorB.SetBool("RoundEnd", true);
         }
     }
     

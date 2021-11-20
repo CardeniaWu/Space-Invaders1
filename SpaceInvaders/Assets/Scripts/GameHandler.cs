@@ -139,7 +139,7 @@ public class GameHandler : MonoBehaviour
         }
 
         //We check to see if the roundTime exceeds the roundTimeLimit. If it does, we call the RoundEnd function
-        if (roundTime >= roundTimeLimit && levelCount < 4)
+        if (roundTime >= roundTimeLimit && levelCount <= 4)
         {
             RoundEnd();
         }
@@ -368,37 +368,37 @@ public class GameHandler : MonoBehaviour
             case 0:
             _enemyCounts[0] = 1;
             _enemyCounts[1] = 0;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
             case 1:
             _enemyCounts[0] = 5;
             _enemyCounts[1] = 0;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
             case 2:
             _enemyCounts[0] = 10;
             _enemyCounts[1] = 0;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
             case 3:
             _enemyCounts[0] = 12;
             _enemyCounts[1] = 1;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
             case 4:
             _enemyCounts[0] = 15;
             _enemyCounts[1] = 2;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
             case 5:
             _enemyCounts[0] = 20;
             _enemyCounts[1] = 5;
-            Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
+            //Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
         }
     }

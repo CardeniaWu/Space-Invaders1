@@ -29,6 +29,11 @@ public class SmallEnemyPathing1 : MonoBehaviour
     //Here we create the variable that will hold our segment prefab
     public Transform waypointPrefab;
 
+    [Header("Round End Logic")]
+    //We create a bool to hold the value of whether round is active or not
+    private bool roundEnd = false;
+    //We create a variable to hold our circle collider 2D which will destroy SEs after they exit the circles area
+    private CircleCollider2D seOperatingArea;
 
 
     // Start is called before the first frame update
@@ -40,6 +45,7 @@ public class SmallEnemyPathing1 : MonoBehaviour
         topOutOfBounds = GameObject.Find("topOutOfBounds").GetComponent<BoxCollider2D>();
         groundOutOfBounds = GameObject.Find("groundOutOfBounds").GetComponent<BoxCollider2D>();
         baseOutOfBounds = GameObject.Find("baseOutOfBounds").GetComponent<BoxCollider2D>();
+        seOperatingArea = GameObject.Find("enemyOperatingArea").GetComponent<CircleCollider2D>();
 
         //Here we instantiate our waypoint before calling the RandomizeEnemyWaypoint function
         waypoint = Instantiate(waypointPrefab);
@@ -67,14 +73,14 @@ public class SmallEnemyPathing1 : MonoBehaviour
 
         //Here we check to see whether our  left out of bounds grid area contains the waypoints position and if the timeFromSpawn exceeds timeToMove
         //Change the value of lSpawn to keep the SmallEnemy in the play field of view if both conditions are true
-        if (lOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove)
+        if (lOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove && roundEnd == false)
         {
             lSpawn = true;
         }
 
         //Here we check to see whether our right out of bounds grid area contains the waypoints position and if the timeFromSpawn exceeds timeToMove
         //Change the value of lSpawn to keep the SmallEnemy in the play field of view if both conditions are true
-        if (rOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove)
+        if (rOutOfBounds.OverlapPoint(waypoint.position) && timeFromSpawn >= timeToMove && roundEnd == false)
         {
             lSpawn = false;
         }
@@ -97,6 +103,19 @@ public class SmallEnemyPathing1 : MonoBehaviour
         else
         {
             gOutOfBounds = false;
+        }
+
+        if (GameObject.Find("GameHandler").GetComponent<GameHandler>().roundActive == false)
+        {
+            roundEnd = true;
+        } else
+        {
+            roundEnd = false;
+        }
+
+        if (seOperatingArea.OverlapPoint(waypoint.position) == false)
+        {
+            Destroy(this.gameObject);
         }
     }
 

@@ -179,6 +179,7 @@ public class GameHandler : MonoBehaviour
                 if (_seSpawnTime[i] <= roundTime)
                 {
                     SpawnSmallEnemy();
+                    _seSpawnTime.RemoveAt(i);
                 }
             }
         }
@@ -191,6 +192,7 @@ public class GameHandler : MonoBehaviour
                 if (_leSpawnTime[i] <= roundTime)
                 {
                     SpawnLargeEnemy();
+                    _leSpawnTime.RemoveAt(i);
                 }
             }
         }

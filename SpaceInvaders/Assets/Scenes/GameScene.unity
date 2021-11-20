@@ -2373,7 +2373,7 @@ MonoBehaviour:
   globalTime: 0
   roundTime: 0
   roundTimeLimit: 240
-  levelCount: 1
+  levelCount: 5
   roundActive: 0
   lvlChangeNotification: {fileID: 1358181542}
   _sePrefab: {fileID: 7993684280312710900, guid: 3dc500c585f31894c8e5bc8eb39bacaf, type: 3}

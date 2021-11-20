@@ -50,6 +50,9 @@ public class GameHandler : MonoBehaviour
     private Transform _sePrefab;
     [SerializeField]
     private Transform _lePrefab;
+    //We create an int to hold the # of SE & LEs spawned
+    private int numOfActiveSE = 0;
+    private int numOfActiveLE = 0;
 
     [Header("SE Spawn System")]
     //We create variables to hold our small enemy spawn points and a list to hold those variables
@@ -62,10 +65,6 @@ public class GameHandler : MonoBehaviour
     private Transform seSpawnPoint;
     //Bool to test which side of the screen the SE spawned on
     public bool seLSpawn;
-    //bool for testing purposes to see if the SE has been spawned yet
-    private int seSpawnedYet = 0;
-    //bool for testing purposes to see if the LE has been spawned yet
-    private int leSpawnedYet = 0;
 
     [Header("LE Spawn System")]
     //We create a list to hold the spawnpoint variables and create our public GameObject variables to hold our spawnpoint GameObjects
@@ -172,16 +171,28 @@ public class GameHandler : MonoBehaviour
             lvlCountTxt.GetComponent<TextMeshProUGUI>().text = levelCount.ToString();
         }
 
-        if (seSpawnedYet < 5)
+        //We check each value in _seSpawnTime against roundTime and spawn a small enemy if the round time exceeds the value
+        if (roundActive && _seSpawnTime != null && numOfActiveSE < _enemyCounts[0])
         {
-            SpawnSmallEnemy();
-            seSpawnedYet++;
+            for (int i = 0; i + 1 <= _seSpawnTime.Count; i++)
+            {
+                if (_seSpawnTime[i] <= roundTime)
+                {
+                    SpawnSmallEnemy();
+                }
+            }
         }
 
-        if (leSpawnedYet < 5)
+        //We check each value in _leSpawnTime against roundTime and spawn a large enemy if the round time exceeds the value
+        if (roundActive && _leSpawnTime != null && numOfActiveLE < _enemyCounts[1])
         {
-            SpawnLargeEnemy();
-            leSpawnedYet++;
+            for (int i = 0; i + 1 <= _leSpawnTime.Count; i++)
+            {
+                if (_leSpawnTime[i] <= roundTime)
+                {
+                    SpawnLargeEnemy();
+                }
+            }
         }
     }
 
@@ -202,6 +213,8 @@ public class GameHandler : MonoBehaviour
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         }
+
+
     }
 
     //We create a function to send us back to the Main Menu and set the game time back to 1
@@ -247,6 +260,9 @@ public class GameHandler : MonoBehaviour
 
         //We set our enemy spawn count for the level
         DetermineEnemyCountPerLvl();
+
+        //We set our spawn frequency
+        SetSpawnFrequency();
     }
 
     //We create a function that ends the round
@@ -255,6 +271,8 @@ public class GameHandler : MonoBehaviour
         //We reset our roundTime to 0.0f and set roundActive to false
         roundTime = 0.0f;
         roundActive = false;
+        numOfActiveSE = 0;
+        numOfActiveLE = 0;
     }
 
     //We create a function that spawns in our Large Enemy prefab
@@ -265,6 +283,8 @@ public class GameHandler : MonoBehaviour
 
         //We set the position to a randomized start position
         largeEnemy.position = RandomizeLEStartPosition().position;
+
+        numOfActiveLE++;
     }
 
     //We create a function that spawns in our Small Enemy prefab
@@ -284,6 +304,8 @@ public class GameHandler : MonoBehaviour
         {
             seLSpawn = false;
         }
+
+        numOfActiveSE++;
     }
 
     //Nifty AddToList function
@@ -338,12 +360,12 @@ public class GameHandler : MonoBehaviour
     private void DetermineEnemyCountPerLvl()
     {
         //This switch statement takes the level count and outputs values for the enemies to be spawned per level
-        //_enemyCounts[0] holds the value for small enemies spawning while _enemyCounts[1] hold sthe value for the large enemies spawning
+        //_enemyCounts[0] holds the value for small enemies spawning while _enemyCounts[1] holds the value for the large enemies spawning
         switch (levelCount)
         {
             case 0:
-            _enemyCounts.Add(1);
-            _enemyCounts.Add(0);
+            _enemyCounts[0] = 1;
+            _enemyCounts[1] = 0;
             Debug.Log($"The small enemy count is {_enemyCounts[0]} while the large enemy count is {_enemyCounts[1]}");
             break;
 
@@ -411,31 +433,37 @@ public class GameHandler : MonoBehaviour
             break;
         }
 
-        //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the small enemies
-        for (int i = 0; i < _enemyCounts[0]; i++)
+        if (_enemyCounts[0] > 0)
         {
-            float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
+            //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the small enemies
+            for (int i = 0; i < _enemyCounts[0]; i++)
+            {
+                float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
             
-            if (_seSpawnTime.Count < i)
-            {
-                _seSpawnTime.Add(randTime);
-            } else
-            {
-                _seSpawnTime[i - 1] = randTime;
+                if (_seSpawnTime.Count <= i)
+                {
+                    _seSpawnTime.Add(randTime);
+                } else
+                {
+                    _seSpawnTime[i] = randTime;
+                }
             }
         }
 
-        //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the large enemies
-        for (int i = 0; i < _enemyCounts[1]; i++)
+        if (_enemyCounts[1] > 0)
         {
-            float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
+            //We take the beginning and end spawn times and use them to randomly assign times that we'll choose to spawn in the large enemies
+            for (int i = 0; i < _enemyCounts[1]; i++)
+            {
+                float randTime = Random.Range(begEnemySpawn, endEnemySpawn);
 
-            if (_leSpawnTime.Count < i)
-            {
-                _leSpawnTime.Add(randTime);
-            } else
-            {
-                _leSpawnTime[i - 1] = randTime;
+                if (_leSpawnTime.Count <= i)
+                {
+                    _leSpawnTime.Add(randTime);
+                } else
+                {
+                    _leSpawnTime[i] = randTime;
+                }
             }
         }
     }

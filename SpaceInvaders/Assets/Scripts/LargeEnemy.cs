@@ -74,7 +74,7 @@ public class LargeEnemy : MonoBehaviour
     void Update()
     {
         //We check to see whether we should continue moving. If we are close enough to the base, we stop and initiate our bay door anims
-        if (leBarrier.OverlapPoint(transform.position))
+        if (leBarrier.OverlapPoint(transform.position) && roundEnd == false)
         {
             shouldMove = false;
             leBayDoorT.SetBool("InRange", true);
@@ -84,12 +84,19 @@ public class LargeEnemy : MonoBehaviour
 
             //We reset velocity to be 0 to stop all movement
             le_Rigidbody2D.velocity = this.transform.position - this.transform.position;
+        } else
+        {
+            leBayDoorB.SetBool("InRange", false);
+            leBayDoorT.SetBool("InRange", false);
         }
 
         //Once the bay doors are in firing position, we heat up our laser gun
         if (leBayDoorB.GetCurrentAnimatorStateInfo(0).IsName("LEBDBFiring") && roundEnd == false)
         {
             LEFire.SetBool("FireReady", true);
+        } else
+        {
+            LEFire.SetBool("FireReady", false);
         }
 
         //Once the laser gun is heated, we fire our laser once
@@ -114,6 +121,7 @@ public class LargeEnemy : MonoBehaviour
             roundEnd = false;
         }
 
+        //We test if the round has ended. If it has, we reverse the direction of the bay door anims and start the cool down anim of the LE laser
         if (roundEnd)
         {
             LEFire.SetBool("RoundEnd", true);
@@ -121,11 +129,13 @@ public class LargeEnemy : MonoBehaviour
             leBayDoorT.SetFloat("Direction", -1);
         }
         
+        //If the round ends in the middle of the laser charging up, we reverse the direction of the anim
         if (roundEnd && LEFire.GetCurrentAnimatorStateInfo(0).IsName("LEFire"))
         {
             LEFire.SetFloat("Direction", -1);
         }
 
+        //Once the LEFire anim has returned to it's waiting state, we begin our leBayDoor closing anims
         if (roundEnd && LEFire.GetCurrentAnimatorStateInfo(0).IsName("Waiting"))
         {
             leBayDoorT.SetBool("RoundEnd", true);
@@ -149,7 +159,7 @@ public class LargeEnemy : MonoBehaviour
         //We calculate our movement value
         movement = this.transform.position - PBase.position;
 
-        //If we are moving, we align our movement with the direction we are heading
+        //If we are moving, we align our rotation with the direction we are heading
         if (movement != Vector2.zero)
         {
             float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
@@ -163,6 +173,14 @@ public class LargeEnemy : MonoBehaviour
             Debug.Log($"LE target rotation is {this.transform.eulerAngles}");
         }
     }
+
+    /*
+    1. Rotate 180 degrees to face in the opposite direction
+    2. Move Forward till off screen
+    3. Delete game object once it reaches the enemyOperatingArea barrier
+
+    */
+
 
     //Here we tell our ship to move towards the player base
     void MoveToLEWaypoint()
